@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Bug Hunter RPG | Trevyn Sanders</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="app">
+      <div id="game" class="game-card">
+        <header class="game-header">
+          <h1>Bug Hunter RPG</h1>
+          <p class="tagline">
+            Defeat the Production Bug Dragon before it ships to real users. No pressure.
+          </p>
+        </header>
+
+        <section id="stats" class="stats">
+          <span class="stat">
+            XP:
+            <strong><span id="xpText">0</span></strong>
+          </span>
+          <span class="stat">
+            Health:
+            <strong><span id="healthText">100</span></strong>
+          </span>
+          <span class="stat">
+            Gold:
+            <strong><span id="goldText">50</span></strong>
+          </span>
+        </section>
+
+        <section id="controls" class="controls">
+          <button id="button1" type="button">Go to shop</button>
+          <button id="button2" type="button">Enter bug cave</button>
+          <button id="button3" type="button">Fight boss bug</button>
+        </section>
+
+        <section id="monsterStats" class="monster-stats">
+          <span class="stat">
+            Monster:
+            <strong><span id="monsterName"></span></strong>
+          </span>
+          <span class="stat">
+            Health:
+            <strong><span id="monsterHealth"></span></strong>
+          </span>
+        </section>
+
+        <section id="text" class="log">
+          Welcome to <strong>Bug Hunter RPG</strong>. You&apos;re the lone dev on
+          release night. Squash enough bugs, stack some XP, and survive long enough
+          to ship without burning out. Choose what to do using the buttons above.
+        </section>
+
+        <footer class="game-footer">
+          <small>Built with vanilla HTML, CSS &amp; JavaScript.</small>
+        </footer>
+      </div>
+    </main>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
