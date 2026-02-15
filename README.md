@@ -2,209 +2,135 @@
 
 A browser-based mini RPG where you play as a developer trying to defeat the **Production Bug Dragon** before release night.
 
-This is a re-themed and heavily restyled version of the classic freeCodeCamp RPG project, focused on cleaner code, better UX, and a modern UI.
+This project demonstrates state management, event-driven UI updates, and basic game mechanics using pure JavaScript — all wrapped in a clean, modern dark interface.
+
+---
+
+## Live Demo
+🔗 https://sharpsanders.github.io/rpg-game/
+
+![Bug Hunter RPG Screenshot](./img/Screenshot-rpg-game.png)
 
 ---
 
 ## Overview
 
-You start in the **dev hub** with:
+You begin in the **Dev Hub** with:
 
-- **XP:** 0  
-- **Health:** 100  
-- **Gold:** 50  
-- **Inventory:** `["rubber duck"]`
+- XP: 0  
+- Health: 100  
+- Gold: 50  
+- Inventory: `["rubber duck"]`
 
 From there you can:
 
-- Visit the **shop** to buy health or stronger tools.
-- Enter the **bug cave** to fight smaller bugs and level up.
-- Fight the **Production Bug Dragon** once you’re ready.
+- Visit the **Shop** to buy health or upgrade tools
+- Enter the **Bug Cave** to level up
+- Fight the **Production Bug Dragon** to win
 
 ---
 
 ## Tech Stack
 
-- **HTML** – semantic structure for the game card, stats, controls, and log.
-- **CSS** – modern dark UI with gradients, soft glow, responsive layout.
-- **JavaScript** – game state, combat system, shop, and mini-game.
+- **HTML5** – semantic layout & UI structure  
+- **CSS3** – modern dark theme, gradients, glow effects  
+- **JavaScript (ES6)** – game state, combat logic, inventory system  
+
+No frameworks. No backend. Fully client-side.
 
 ---
 
-## Features
+## Key Features
 
-- **Turn-based combat**
-  - Fight three enemy types:
-    - *annoying lint error*
-    - *legacy feature request*
-    - *production bug dragon*
-  - Attack, dodge, or run back to the hub.
-- **Weapons & inventory**
-  - Weapons:
-    - `rubber duck`
-    - `debugger`
-    - `Stack Overflow tab`
-    - `refactor hammer`
-  - Buy weapons with gold and stack them in your inventory.
-  - Weapons can **break** with a small random chance.
-  - Can sell older weapons for gold.
-- **Shop**
-  - Buy 10 health for 10 gold.
-  - Buy a stronger weapon for 30 gold (until you have the best).
-- **XP & scaling**
-  - Gaining XP reduces the damage you take over time.
-  - Enemy attack damage uses enemy level + randomness – XP.
-- **Win / Lose states**
-  - **Win** by defeating the Production Bug Dragon.
-  - **Lose** when your health hits 0.
-  - Both states show a replay screen with `REPLAY?` buttons.
-- **Easter egg mini-game**
-  - After killing a monster, you can access a secret game:
-    - Pick 2 or 8.
-    - Ten random numbers (0–10) are generated.
-    - If your number appears → **+20 gold**.
-    - If not → **-10 health** (can kill you).
+### Turn-Based Combat
+- Fight:
+  - annoying lint error  
+  - legacy feature request  
+  - production bug dragon  
+- Attack, dodge, or retreat
+- Randomized damage system
+
+### Weapons & Inventory
+- Upgrade tools:
+  - rubber duck
+  - debugger
+  - Stack Overflow tab
+  - refactor hammer
+- Weapons can randomly break (10% chance)
+- Sell older tools for gold
+
+### XP & Scaling System
+- XP reduces incoming damage
+- Monster strength scales by level + randomness
+- Multiple win/lose states with replay system
+
+### Shop System
+- Buy health (10 gold → +10 health)
+- Buy stronger weapons
+- Dynamic UI updates based on inventory
+
+### Easter Egg Mini-Game
+- Unlock after defeating a monster
+- Pick 2 or 8
+- Random number draw (0–10)
+- Win gold or lose health
 
 ---
 
-## How the Code Is Structured
+## What This Project Demonstrates
 
-### Game state
+- Managing application state with vanilla JavaScript
+- Using structured data arrays (weapons, monsters, locations) to drive UI
+- Decoupling UI updates from game logic
+- Handling dynamic event bindings
+- Implementing randomness in gameplay systems
+- Designing an interactive experience without frameworks
 
-```js
-let xp = 0;
-let health = 100;
-let gold = 50;
-let currentWeapon = 0;
-let fighting;
-let monsterHealth;
-let inventory = ["rubber duck"];
-Data: weapons, monsters, locations
-weapons: array of { name, power }.
+---
 
-monsters: array of { name, level, health }.
+## Code Structure
 
-locations: array of objects that define:
-
-name
-
-"button text": text for the 3 buttons
-
-"button functions": functions bound to those buttons
-
-text: description/log text for that location
-
-This lets update(location) drive the entire UI:
-
-js
-Copy code
-function update(location) {
-  monsterStats.style.display = "none";
-  button1.innerText = location["button text"][0];
-  button2.innerText = location["button text"][1];
-  button3.innerText = location["button text"][2];
-  button1.onclick = location["button functions"][0];
-  button2.onclick = location["button functions"][1];
-  button3.onclick = location["button functions"][2];
-  text.innerText = location.text;
-}
-Combat
-fightSlime, fightBeast, fightDragon set fighting index and call goFight().
-
-goFight():
-
-Switches to the fight location.
-
-Shows monster stats and sets monsterHealth.
-
-attack():
-
-Shows flavor text.
-
-Reduces player health via getMonsterAttackValue(level).
-
-If isMonsterHit():
-
-Calculates damage based on weapon power and XP.
-
-Reduces monsterHealth.
-
-Checks for:
-
-lose() if player health ≤ 0.
-
-winGame() if dragon dies.
-
-defeatMonster() for other monsters.
-
-Includes 10% chance your current weapon breaks (if you have more than one).
-
-Mini-game
-easterEgg() switches to the special location.
-pickTwo() / pickEight() call pick(guess).
-
-pick(guess):
-
-Generates 10 random integers between 0 and 10.
-
-Shows them in the log.
-
-If the guessed number appears → +20 gold.
-
-Otherwise → -10 health, and can trigger lose().
-
-Reset
-restart() resets all stats, inventory, and UI, then calls goTown().
-
-How to Run
-Clone the repo:
-
-bash
-Copy code
-git clone https://github.com/SharpSanders/rpg-game.git
-cd rpg-game
-Open the game:
-
-Double-click index.html, or
-
-Use Live Server in VS Code for fast reloads.
-
-Everything runs client-side; no build step or backend needed.
-
-Project Structure
-text
-Copy code
 rpg-game/
-├── index.html   # Game layout and containers
-├── styles.css   # Neon-dark UI, layout, responsive styles
-└── script.js    # Game state, logic, combat, shop, mini-game
-What I Practiced
-Managing a small game state with plain JavaScript.
+├── index.html
+├── styles.css
+├── script.js
+└── img/
+└── Screenshot-rpg-game.png
 
-Using arrays of data (weapons, monsters, locations) to drive UI instead of hardcoding.
 
-Working with DOM events and dynamic button behaviors.
+The UI is controlled by a central `update(location)` function that dynamically updates:
 
-Implementing basic game mechanics:
+- Button text
+- Button event handlers
+- Displayed content
+- Monster stats visibility
 
-health/xp systems
+This structure keeps the game modular and easy to extend.
 
-random damage
+---
 
-inventory & upgrades
+## How To Run Locally
 
-Designing a clean, modern game card UI in pure CSS.
+1. Clone the repository:
+git clone https://github.com/SharpSanders/rpg-game.git
 
-Future Improvements
-Add sound effects for attacks, buying items, and game over.
+2. Open `index.html` in your browser
 
-Animate health loss and damage numbers.
+No build steps required.
 
-Add difficulty modes that tweak monster stats.
+---
 
-Persist best runs or stats in localStorage.
+## Future Improvements
 
-Refactor to a more modular structure (classes or factory functions).
+- Add sound effects
+- Animate health loss & damage numbers
+- Add difficulty modes
+- Persist stats using localStorage
+- Refactor into modular architecture (classes or factory pattern)
 
-Author
-Created by Trevyn Sanders.
+---
+
+## Author
+
+Created by **Trevyn Sanders**  
+Frontend Developer | Better Endeavors LLC
